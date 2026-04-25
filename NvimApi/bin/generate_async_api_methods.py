@@ -9,13 +9,14 @@ import msgpack
 
 from api_generator_common import (
     msgpack_to_swift,
-    nvim_type_to_swift,
     parse_args,
     parse_error_cases,
     parse_error_types,
     parse_params,
     parse_version,
+    resolved_return_type,
     snake_to_camel,
+    warn_if_missing_override,
 )
 
 void_func_template = Template(
@@ -229,24 +230,25 @@ extension NvimApi.Tabpage {
 
 
 def parse_function(f):
-    args = parse_args(f["parameters"])
-    result_type = nvim_type_to_swift(f["return_type"])
+    nvim_func_name = f["name"]
+    warn_if_missing_override(nvim_func_name, f["return_type"])
+    args = parse_args(f["parameters"], func_name=nvim_func_name)
+    result_type = resolved_return_type(nvim_func_name, f["return_type"])
     if f["return_type"] == "void":
         template = void_func_template
     elif result_type == "[NvimApi.Value]":
         template = array_value_func_template
     else:
         template = func_template
-    nvim_func_name = f["name"]
     template = get_mode_func_template if nvim_func_name == "nvim_get_mode" else template
 
     result = template.substitute(
         func_name=snake_to_camel(nvim_func_name),
         nvim_func_name=nvim_func_name,
         args=args,
-        params=parse_params(f["parameters"]),
-        result_type=nvim_type_to_swift(f["return_type"]),
-        return_value=msgpack_to_swift("value", nvim_type_to_swift(f["return_type"])),
+        params=parse_params(f["parameters"], func_name=nvim_func_name),
+        result_type=result_type,
+        return_value=msgpack_to_swift("value", result_type),
     )
 
     if "deprecated_since" in f:

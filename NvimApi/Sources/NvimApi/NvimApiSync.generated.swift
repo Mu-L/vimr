@@ -2460,18 +2460,28 @@ public extension NvimApiSync {
   func nvimTabpageListWins(
     tabpage: NvimApi.Tabpage,
     errWhenBlocked: Bool = true
-  ) -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) -> Result<[NvimApi.Window], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(tabpage.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Window] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Window(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Window].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = self.blockedError() { return .failure(error) }
 
     let reqResult = self.sendRequest(method: "nvim_tabpage_list_wins", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Window] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3478,18 +3488,28 @@ public extension NvimApiSync {
 
   func nvimListBufs(
     errWhenBlocked: Bool = true
-  ) -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) -> Result<[NvimApi.Buffer], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Buffer] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Buffer(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Buffer].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = self.blockedError() { return .failure(error) }
 
     let reqResult = self.sendRequest(method: "nvim_list_bufs", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Buffer] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3543,18 +3563,28 @@ public extension NvimApiSync {
 
   func nvimListWins(
     errWhenBlocked: Bool = true
-  ) -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) -> Result<[NvimApi.Window], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Window] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Window(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Window].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = self.blockedError() { return .failure(error) }
 
     let reqResult = self.sendRequest(method: "nvim_list_wins", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Window] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3691,18 +3721,28 @@ public extension NvimApiSync {
 
   func nvimListTabpages(
     errWhenBlocked: Bool = true
-  ) -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) -> Result<[NvimApi.Tabpage], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Tabpage] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Tabpage(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Tabpage].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = self.blockedError() { return .failure(error) }
 
     let reqResult = self.sendRequest(method: "nvim_list_tabpages", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Tabpage] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }

@@ -1,7 +1,61 @@
 #!/usr/bin/env python3
 
 import re
+import sys
 import textwrap
+
+# Overrides for functions whose `nvim --api-info` signature is lossier than the
+# real wire shape. Today the only known case is the list-style functions: they
+# advertise a plain `Array` return type, but the elements are actually EXT
+# values (Buffer / Window / Tabpage). See api.txt *Special types (msgpack EXT)*.
+RETURN_TYPE_OVERRIDES = {
+    "nvim_list_bufs": "[NvimApi.Buffer]",
+    "nvim_list_wins": "[NvimApi.Window]",
+    "nvim_list_tabpages": "[NvimApi.Tabpage]",
+    "nvim_tabpage_list_wins": "[NvimApi.Window]",
+}
+
+# Keyed as (func_name, param_name). Empty today — add entries when a parameter's
+# wire type is more general than its real type.
+PARAM_TYPE_OVERRIDES: dict[tuple[str, str], str] = {}
+
+# list-style functions whose plain `Array` return really is a generic array
+# (strings, dicts). Listed explicitly so the warning only fires for newly-added
+# list APIs that haven't been triaged yet.
+KNOWN_NON_EXT_LIST_FUNCS = {
+    "nvim_list_runtime_paths",
+    "nvim_list_chans",
+    "nvim_list_uis",
+    "vim_list_runtime_paths",
+}
+
+
+def resolved_return_type(func_name, nvim_type):
+    if func_name in RETURN_TYPE_OVERRIDES:
+        return RETURN_TYPE_OVERRIDES[func_name]
+    return nvim_type_to_swift(nvim_type)
+
+
+def resolved_param_type(func_name, param_name, nvim_type):
+    key = (func_name, param_name)
+    if key in PARAM_TYPE_OVERRIDES:
+        return PARAM_TYPE_OVERRIDES[key]
+    return nvim_type_to_swift(nvim_type)
+
+
+def warn_if_missing_override(func_name, nvim_return_type):
+    if nvim_return_type != "Array":
+        return
+    if "_list_" not in func_name and not func_name.endswith("_list"):
+        return
+    if func_name in RETURN_TYPE_OVERRIDES or func_name in KNOWN_NON_EXT_LIST_FUNCS:
+        return
+    print(
+        f"warning: {func_name} returns plain Array with no override; "
+        "if its elements are Buffer/Window/Tabpage add a RETURN_TYPE_OVERRIDES entry, "
+        "otherwise add it to KNOWN_NON_EXT_LIST_FUNCS.",
+        file=sys.stderr,
+    )
 
 
 def snake_to_camel(snake_str):
@@ -126,9 +180,9 @@ def swift_to_msgpack_value(name, type):
         return f".array({name}.map {{ {swift_to_msgpack_value(test, match.group(1))} }})"
 
 
-def parse_args(raw_params):
-    types = [nvim_type_to_swift(p[0]) for p in raw_params]
+def parse_args(raw_params, func_name=None):
     names = [p[1] for p in raw_params]
+    types = [resolved_param_type(func_name, p[1], p[0]) for p in raw_params]
     params = dict(zip(names, types))
 
     result = "\n".join([n + ": " + t + "," for n, t in params.items()])
@@ -138,9 +192,9 @@ def parse_args(raw_params):
     return "\n" + textwrap.indent(result, "    ")
 
 
-def parse_params(raw_params):
-    types = [nvim_type_to_swift(p[0]) for p in raw_params]
+def parse_params(raw_params, func_name=None):
     names = [p[1] for p in raw_params]
+    types = [resolved_param_type(func_name, p[1], p[0]) for p in raw_params]
     params = dict(zip(names, types))
 
     result = "\n".join([swift_to_msgpack_value(n, t) + "," for n, t in params.items()])

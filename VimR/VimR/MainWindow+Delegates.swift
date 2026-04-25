@@ -135,7 +135,7 @@ extension MainWindow {
       "Statement", // control flow statements
       "Type", // type names
       "Constant", // constants
-      "Special" // special characters/keywords
+      "Special", // special characters/keywords
     ]
 
     let map: [String: CellAttributes] = colorNames.reduce(into: [:]) { dict, colorName in
@@ -208,6 +208,12 @@ extension MainWindow {
         alert.messageText = "Nvim is waiting for your input."
         alert.alertStyle = .informational
         alert.runModal()
+        return
+      }
+
+      // Connected to an external nvim — just detach, never send :q/:qa!
+      if self.neoVimView.isAttachedToRunningNvim {
+        await self.neoVimView.stop()
         return
       }
 

@@ -1,5 +1,12 @@
 # Next
 
+* GH-1161: Connect to a remote Neovim instance via TCP or Unix domain socket. Thanks @georgeharker for the PR!
+* GH-1162: Fix window close / quit safety races. Thanks @georgeharker for the PR!
+* Neovim 0.12.2 😀
+
+
+# 0.62.0-20260408.124559
+
 * Neovim 0.12.1 😀
 * Dependencides updates:
   - sparkle-project/Sparkle@2.9.1

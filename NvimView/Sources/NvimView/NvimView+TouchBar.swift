@@ -105,7 +105,7 @@ extension NvimView: NSTouchBarDelegate, NSScrubberDataSource, NSScrubberDelegate
 
     let window = tab.currentWindow ?? tab.windows[0]
     Task {
-      await self.api.nvimSetCurrentWin(window: .init(window.handle)).cauterize()
+      await self.api.nvimSetCurrentWin(win: .init(window.handle)).cauterize()
     }
   }
 }

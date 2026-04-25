@@ -243,7 +243,7 @@ public extension NvimView {
   }
 
   func newTab() async {
-    await self.api.nvimCommand(command: "tabe").cauterize()
+    await self.api.nvimCommand(cmd: "tabe").cauterize()
   }
 
   func open(urls: [URL]) async {
@@ -257,7 +257,7 @@ public extension NvimView {
       let wins = tabs.map(\.windows).flatMap(\.self)
 
       if let win = bufExists ? wins.first(where: { win in win.buffer.url == url }) : nil {
-        await self.api.nvimSetCurrentWin(window: .init(win.handle)).cauterize()
+        await self.api.nvimSetCurrentWin(win: .init(win.handle)).cauterize()
       }
       if currentBufferIsTransient { await self.open(url, cmd: "e") }
       else { await self.open(url, cmd: "tabe") }
@@ -291,35 +291,35 @@ public extension NvimView {
     let allWins = tabs.map(\.windows).flatMap(\.self)
 
     if let win = allWins.first(where: { $0.buffer == buffer }) {
-      return await self.api.nvimSetCurrentWin(window: .init(win.handle)).cauterize()
+      return await self.api.nvimSetCurrentWin(win: .init(win.handle)).cauterize()
     }
 
-    await self.api.nvimCommand(command: "tab sb \(buffer.handle)").cauterize()
+    await self.api.nvimCommand(cmd: "tab sb \(buffer.handle)").cauterize()
   }
 
   func goTo(line: Int) async {
-    await self.api.nvimCommand(command: "\(line)").cauterize()
+    await self.api.nvimCommand(cmd: "\(line)").cauterize()
   }
 
   /// Closes the current window.
   func closeCurrentTab() async {
-    await self.api.nvimCommand(command: "q").cauterize()
+    await self.api.nvimCommand(cmd: "q").cauterize()
   }
 
   func saveCurrentTab() async {
-    await self.api.nvimCommand(command: "w").cauterize()
+    await self.api.nvimCommand(cmd: "w").cauterize()
   }
 
   func saveCurrentTab(url: URL) async {
-    await self.api.nvimCommand(command: "w \(url.shellEscapedPath)").cauterize()
+    await self.api.nvimCommand(cmd: "w \(url.shellEscapedPath)").cauterize()
   }
 
   func closeCurrentTabWithoutSaving() async {
-    await self.api.nvimCommand(command: "q!").cauterize()
+    await self.api.nvimCommand(cmd: "q!").cauterize()
   }
 
   func quitNeoVimWithoutSaving() async {
-    await self.api.nvimCommand(command: "qa!").cauterize()
+    await self.api.nvimCommand(cmd: "qa!").cauterize()
   }
 
   func vimOutput(of command: String) async -> String? {
@@ -337,7 +337,7 @@ public extension NvimView {
   func cursorGo(to position: Position) async {
     guard let curWin = try? await self.api.nvimGetCurrentWin().get() else { return }
     await self.api.nvimWinSetCursor(
-      window: curWin,
+      win: curWin,
       pos: [NvimApi.Value.int(Int64(position.row)), .int(Int64(position.column))],
       expectsReturnValue: false
     ).cauterize()
@@ -356,7 +356,7 @@ public extension NvimView {
     currentWindow: NvimApi.Window?,
     currentBuffer: NvimApi.Buffer?
   ) async -> NvimView.Window? {
-    guard case let .success(value) = await self.api.nvimWinGetBuf(window: window),
+    guard case let .success(value) = await self.api.nvimWinGetBuf(win: window),
           let result = await self.neoVimBuffer(for: value, currentBuffer: currentBuffer)
     else { return nil }
 
@@ -381,6 +381,6 @@ public extension NvimView {
   }
 
   private func open(_ url: URL, cmd: String) async {
-    await self.api.nvimCommand(command: "\(cmd) \(url.shellEscapedPath)").cauterize()
+    await self.api.nvimCommand(cmd: "\(cmd) \(url.shellEscapedPath)").cauterize()
   }
 }

@@ -191,7 +191,7 @@ public final class NvimView: NSView,
     self.runBridge()
 
     self.tabBar?.closeHandler = { [weak self] index, _, _ in
-      self?.apiSync.nvimCommand(command: "tabclose \(index + 1)").cauterize()
+      self?.apiSync.nvimCommand(cmd: "tabclose \(index + 1)").cauterize()
     }
     self.tabBar?.selectHandler = { [weak self] _, tabEntry, _ in
       self?.apiSync.nvimSetCurrentTabpage(tabpage: tabEntry.tabpage).cauterize()
@@ -199,7 +199,7 @@ public final class NvimView: NSView,
     self.tabBar?.reorderHandler = { [weak self] index, _, entries in
       // I don't know why, but `tabm ${last_index}` does not always work.
       let command = (index == entries.count - 1) ? "tabm" : "tabm \(index)"
-      self?.apiSync.nvimCommand(command: command).cauterize()
+      self?.apiSync.nvimCommand(cmd: command).cauterize()
     }
   }
 

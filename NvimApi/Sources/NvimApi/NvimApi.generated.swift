@@ -1,4 +1,4 @@
-// Auto generated for nvim version 0.12.0.
+// Auto generated for nvim version 0.12.2.
 // See bin/generate_api_methods.py
 
 import Foundation
@@ -229,12 +229,12 @@ public extension NvimApi {
   }
 
   func nvimBufLineCount(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -259,14 +259,14 @@ public extension NvimApi {
   }
 
   func nvimBufAttach(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     send_buffer: Bool,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .bool(send_buffer),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
@@ -293,12 +293,12 @@ public extension NvimApi {
   }
 
   func nvimBufDetach(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {
@@ -323,7 +323,7 @@ public extension NvimApi {
   }
 
   func nvimBufGetLines(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start: Int,
     end: Int,
     strict_indexing: Bool,
@@ -331,7 +331,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
@@ -349,7 +349,7 @@ public extension NvimApi {
   }
 
   func nvimBufSetLines(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start: Int,
     end: Int,
     strict_indexing: Bool,
@@ -358,7 +358,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
@@ -377,7 +377,7 @@ public extension NvimApi {
   }
 
   func nvimBufSetText(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start_row: Int,
     start_col: Int,
     end_row: Int,
@@ -387,7 +387,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start_row)),
       .int(Int64(start_col)),
       .int(Int64(end_row)),
@@ -407,7 +407,7 @@ public extension NvimApi {
   }
 
   func nvimBufGetText(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start_row: Int,
     start_col: Int,
     end_row: Int,
@@ -417,7 +417,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start_row)),
       .int(Int64(start_col)),
       .int(Int64(end_row)),
@@ -437,13 +437,13 @@ public extension NvimApi {
   }
 
   func nvimBufGetOffset(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     index: Int,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(index)),
     ]
 
@@ -469,13 +469,13 @@ public extension NvimApi {
   }
 
   func nvimBufGetVar(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -501,12 +501,12 @@ public extension NvimApi {
   }
 
   func nvimBufGetChangedtick(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -531,13 +531,13 @@ public extension NvimApi {
   }
 
   func nvimBufGetKeymap(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     mode: String,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(mode),
     ]
 
@@ -553,7 +553,7 @@ public extension NvimApi {
   }
 
   func nvimBufSetKeymap(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     mode: String,
     lhs: String,
     rhs: String,
@@ -562,7 +562,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(mode),
       .string(lhs),
       .string(rhs),
@@ -581,14 +581,14 @@ public extension NvimApi {
   }
 
   func nvimBufDelKeymap(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     mode: String,
     lhs: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(mode),
       .string(lhs),
     ]
@@ -605,14 +605,14 @@ public extension NvimApi {
   }
 
   func nvimBufSetVar(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     value: NvimApi.Value,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
       value,
     ]
@@ -629,13 +629,13 @@ public extension NvimApi {
   }
 
   func nvimBufDelVar(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -651,12 +651,12 @@ public extension NvimApi {
   }
 
   func nvimBufGetName(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<String, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> String {
@@ -681,13 +681,13 @@ public extension NvimApi {
   }
 
   func nvimBufSetName(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -703,12 +703,12 @@ public extension NvimApi {
   }
 
   func nvimBufIsLoaded(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {
@@ -733,13 +733,13 @@ public extension NvimApi {
   }
 
   func nvimBufDelete(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     opts: [String: NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -755,12 +755,12 @@ public extension NvimApi {
   }
 
   func nvimBufIsValid(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {
@@ -785,13 +785,13 @@ public extension NvimApi {
   }
 
   func nvimBufDelMark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -817,7 +817,7 @@ public extension NvimApi {
   }
 
   func nvimBufSetMark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     line: Int,
     col: Int,
@@ -826,7 +826,7 @@ public extension NvimApi {
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
       .int(Int64(line)),
       .int(Int64(col)),
@@ -855,13 +855,13 @@ public extension NvimApi {
   }
 
   func nvimBufGetMark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -877,13 +877,13 @@ public extension NvimApi {
   }
 
   func nvimBufCall(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     fun: NvimApi.Value,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       fun,
     ]
 
@@ -974,14 +974,14 @@ public extension NvimApi {
 
   func nvimCreateUserCommand(
     name: String,
-    command: NvimApi.Value,
+    cmd: NvimApi.Value,
     opts: [String: NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .string(name),
-      command,
+      cmd,
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -1017,17 +1017,17 @@ public extension NvimApi {
   }
 
   func nvimBufCreateUserCommand(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
-    command: NvimApi.Value,
+    cmd: NvimApi.Value,
     opts: [String: NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
-      command,
+      cmd,
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -1043,13 +1043,13 @@ public extension NvimApi {
   }
 
   func nvimBufDelUserCommand(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -1095,13 +1095,13 @@ public extension NvimApi {
   }
 
   func nvimBufGetCommands(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<[String: NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -2305,7 +2305,7 @@ public extension NvimApi {
   }
 
   func nvimBufGetExtmarkById(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     ns_id: Int,
     id: Int,
     opts: [String: NvimApi.Value],
@@ -2313,7 +2313,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(ns_id)),
       .int(Int64(id)),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
@@ -2331,7 +2331,7 @@ public extension NvimApi {
   }
 
   func nvimBufGetExtmarks(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     ns_id: Int,
     start: NvimApi.Value,
     end: NvimApi.Value,
@@ -2340,7 +2340,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(ns_id)),
       start,
       end,
@@ -2359,7 +2359,7 @@ public extension NvimApi {
   }
 
   func nvimBufSetExtmark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     ns_id: Int,
     line: Int,
     col: Int,
@@ -2368,7 +2368,7 @@ public extension NvimApi {
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(ns_id)),
       .int(Int64(line)),
       .int(Int64(col)),
@@ -2397,14 +2397,14 @@ public extension NvimApi {
   }
 
   func nvimBufDelExtmark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     ns_id: Int,
     id: Int,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(ns_id)),
       .int(Int64(id)),
     ]
@@ -2431,7 +2431,7 @@ public extension NvimApi {
   }
 
   func nvimBufClearNamespace(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     ns_id: Int,
     line_start: Int,
     line_end: Int,
@@ -2439,7 +2439,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(ns_id)),
       .int(Int64(line_start)),
       .int(Int64(line_end)),
@@ -2806,14 +2806,14 @@ public extension NvimApi {
   }
 
   func nvimOpenTabpage(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     enter: Bool,
     config: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Tabpage, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .bool(enter),
       .map(config.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
@@ -3735,12 +3735,12 @@ public extension NvimApi {
   }
 
   func nvimSetCurrentBuf(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -3803,12 +3803,12 @@ public extension NvimApi {
   }
 
   func nvimSetCurrentWin(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -3855,13 +3855,13 @@ public extension NvimApi {
   }
 
   func nvimOpenTerm(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -4551,12 +4551,12 @@ public extension NvimApi {
   }
 
   func nvimCommand(
-    command: String,
+    cmd: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .string(command),
+      .string(cmd),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -4669,14 +4669,14 @@ public extension NvimApi {
   func nvimParseExpression(
     expr: String,
     flags: String,
-    highlight: Bool,
+    hl: Bool,
     errWhenBlocked: Bool = true
   ) async -> Result<[String: NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .string(expr),
       .string(flags),
-      .bool(highlight),
+      .bool(hl),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String: NvimApi.Value] {
@@ -4701,14 +4701,14 @@ public extension NvimApi {
   }
 
   func nvimOpenWin(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     enter: Bool,
     config: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Window, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .bool(enter),
       .map(config.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
@@ -4735,13 +4735,13 @@ public extension NvimApi {
   }
 
   func nvimWinSetConfig(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     config: [String: NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .map(config.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -4757,12 +4757,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetConfig(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<[String: NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String: NvimApi.Value] {
@@ -4787,12 +4787,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetBuf(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Buffer, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Buffer {
@@ -4817,14 +4817,14 @@ public extension NvimApi {
   }
 
   func nvimWinSetBuf(
-    window: NvimApi.Window,
-    buffer: NvimApi.Buffer,
+    win: NvimApi.Window,
+    buf: NvimApi.Buffer,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
-      .int(Int64(buffer.handle)),
+      .int(Int64(win.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -4839,12 +4839,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetCursor(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
@@ -4859,13 +4859,13 @@ public extension NvimApi {
   }
 
   func nvimWinSetCursor(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     pos: [NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .array(pos.map { $0 }),
     ]
 
@@ -4881,12 +4881,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetHeight(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -4911,13 +4911,13 @@ public extension NvimApi {
   }
 
   func nvimWinSetHeight(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     height: Int,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .int(Int64(height)),
     ]
 
@@ -4933,12 +4933,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetWidth(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -4963,13 +4963,13 @@ public extension NvimApi {
   }
 
   func nvimWinSetWidth(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     width: Int,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .int(Int64(width)),
     ]
 
@@ -4985,13 +4985,13 @@ public extension NvimApi {
   }
 
   func nvimWinGetVar(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .string(name),
     ]
 
@@ -5017,14 +5017,14 @@ public extension NvimApi {
   }
 
   func nvimWinSetVar(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     name: String,
     value: NvimApi.Value,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .string(name),
       value,
     ]
@@ -5041,13 +5041,13 @@ public extension NvimApi {
   }
 
   func nvimWinDelVar(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     name: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .string(name),
     ]
 
@@ -5063,12 +5063,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetPosition(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
@@ -5083,12 +5083,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetTabpage(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Tabpage, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Tabpage {
@@ -5113,12 +5113,12 @@ public extension NvimApi {
   }
 
   func nvimWinGetNumber(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -5143,12 +5143,12 @@ public extension NvimApi {
   }
 
   func nvimWinIsValid(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {
@@ -5173,12 +5173,12 @@ public extension NvimApi {
   }
 
   func nvimWinHide(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -5193,13 +5193,13 @@ public extension NvimApi {
   }
 
   func nvimWinClose(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     force: Bool,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .bool(force),
     ]
 
@@ -5215,13 +5215,13 @@ public extension NvimApi {
   }
 
   func nvimWinCall(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     fun: NvimApi.Value,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       fun,
     ]
 
@@ -5247,13 +5247,13 @@ public extension NvimApi {
   }
 
   func nvimWinSetHlNs(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     ns_id: Int,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .int(Int64(ns_id)),
     ]
 
@@ -5269,13 +5269,13 @@ public extension NvimApi {
   }
 
   func nvimWinTextHeight(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<[String: NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -5302,12 +5302,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferLineCount(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -5333,7 +5333,7 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferGetLines(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start: Int,
     end: Int,
     strict_indexing: Bool,
@@ -5341,7 +5341,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
@@ -5360,7 +5360,7 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferSetLines(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     start: Int,
     end: Int,
     strict_indexing: Bool,
@@ -5369,7 +5369,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
@@ -5389,13 +5389,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferGetVar(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -5422,12 +5422,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferGetName(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<String, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> String {
@@ -5453,13 +5453,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferSetName(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -5476,12 +5476,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferIsValid(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {
@@ -5507,13 +5507,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func bufferGetMark(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
       .string(name),
     ]
 
@@ -6452,12 +6452,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimSetCurrentBuffer(
-    buffer: NvimApi.Buffer,
+    buf: NvimApi.Buffer,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(buffer.handle)),
+      .int(Int64(buf.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -6523,12 +6523,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimSetCurrentWindow(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -6696,12 +6696,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimCommand(
-    command: String,
+    cmd: String,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .string(command),
+      .string(cmd),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -6781,12 +6781,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetBuffer(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Buffer, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Buffer {
@@ -6812,12 +6812,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetCursor(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
@@ -6833,13 +6833,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowSetCursor(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     pos: [NvimApi.Value],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .array(pos.map { $0 }),
     ]
 
@@ -6856,12 +6856,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetHeight(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -6887,13 +6887,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowSetHeight(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     height: Int,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .int(Int64(height)),
     ]
 
@@ -6910,12 +6910,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetWidth(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Int, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Int {
@@ -6941,13 +6941,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowSetWidth(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     width: Int,
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .int(Int64(width)),
     ]
 
@@ -6964,13 +6964,13 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetVar(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     name: String,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
       .string(name),
     ]
 
@@ -6997,12 +6997,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetPosition(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
@@ -7018,12 +7018,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowGetTabpage(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Tabpage, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Tabpage {
@@ -7049,12 +7049,12 @@ public extension NvimApi {
 
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowIsValid(
-    window: NvimApi.Window,
+    win: NvimApi.Window,
     errWhenBlocked: Bool = true
   ) async -> Result<Bool, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .int(Int64(window.handle)),
+      .int(Int64(win.handle)),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> Bool {

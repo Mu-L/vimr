@@ -1,5 +1,6 @@
 # Next
 
+* Neovim 0.12.4 😀
 * Dependencides updates:
   - sparkle-project/Sparkle@2.9.3
 

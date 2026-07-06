@@ -6,22 +6,26 @@
     <description>Most recent changes with links to updates for VimR.</description>
     <language>en</language>
     <item>
-      <title>v0.64.0-20260615.163555</title>
+      <title>v0.65.0-20260706.084223</title>
       <link>https://twitter.com/vimrefined</link>
-      <sparkle:version>20260615.163555</sparkle:version>
-      <sparkle:shortVersionString>v0.64.0</sparkle:shortVersionString>
+      <sparkle:version>20260706.084223</sparkle:version>
+      <sparkle:shortVersionString>v0.65.0</sparkle:shortVersionString>
       <description><![CDATA[
     <ul>
-<li>Neovim 0.12.3 😀</li>
+<li>Neovim 0.12.4 😀</li>
+<li>Dependencides updates:<ul>
+<li>sparkle-project/Sparkle@2.9.3</li>
+</ul>
+</li>
 </ul>
   ]]></description>
       <releaseNotesLink>
-        https://github.com/qvacua/vimr/releases/tag/v0.64.0-20260615.163555
+        https://github.com/qvacua/vimr/releases/tag/v0.65.0-20260706.084223
       </releaseNotesLink>
-      <pubDate>2026-06-15T16:42:24.024862</pubDate>
+      <pubDate>2026-07-06T08:46:35.169696</pubDate>
       <minimumSystemVersion>14.8</minimumSystemVersion>
-      <enclosure url="https://github.com/qvacua/vimr/releases/download/v0.64.0-20260615.163555/VimR-v0.64.0.tar.bz2"
-                 sparkle:edSignature="zoeJCSzIyPFADXM/soY367c7x3YQzob6ZaL2ljKOEz75p0k6lmQiXh7nks8X4XZCgq6xjq5dUABmcoBiAVT6Bg==" length="19207547"
+      <enclosure url="https://github.com/qvacua/vimr/releases/download/v0.65.0-20260706.084223/VimR-v0.65.0.tar.bz2"
+                 sparkle:edSignature="6upIKwpetFdSem0ibu1FpWIpl1rgPCMMQnPV6Mn3fV/CQCFnpnUciXSY1WM7LwjblzdZfocCad6/u9NKSsMpCg==" length="19200946"
                  type="application/octet-stream"/>
     </item>
   </channel>

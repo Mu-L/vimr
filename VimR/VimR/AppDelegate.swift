@@ -327,6 +327,18 @@ extension AppDelegate {
     return .terminateLater
   }
 
+  func applicationDockMenu(_: NSApplication) -> NSMenu? {
+    let menu = NSMenu()
+    let newWindowItem = NSMenuItem(
+      title: "New Window",
+      action: #selector(AppDelegate.newDocument(_:)),
+      keyEquivalent: ""
+    )
+    newWindowItem.target = self
+    menu.addItem(newWindowItem)
+    return menu
+  }
+
   // For drag & dropping files on the App icon.
   func application(_ sender: NSApplication, openFiles filenames: [String]) {
     let urls = filenames.map { URL(fileURLWithPath: $0) }

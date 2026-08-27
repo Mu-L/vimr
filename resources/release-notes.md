@@ -1,5 +1,10 @@
 # Next
 
+* Neovim 0.12.5 😀
+* GH-1168: Add "New Window" Dock menu. Thanks @jessie-murray for the PR!
+
+# v0.65.0-20260706.084223
+
 * Neovim 0.12.4 😀
 * Dependencides updates:
   - sparkle-project/Sparkle@2.9.3

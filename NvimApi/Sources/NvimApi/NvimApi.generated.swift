@@ -1,4 +1,4 @@
-// Auto generated for nvim version 0.12.3.
+// Auto generated for nvim version 0.12.5.
 // See bin/generate_api_methods.py
 
 import Foundation
@@ -45,18 +45,28 @@ public extension NvimApi {
   func nvimGetAutocmds(
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_get_autocmds", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -328,7 +338,7 @@ public extension NvimApi {
     end: Int,
     strict_indexing: Bool,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
@@ -337,12 +347,22 @@ public extension NvimApi {
       .bool(strict_indexing),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_buf_get_lines", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -353,7 +373,7 @@ public extension NvimApi {
     start: Int,
     end: Int,
     strict_indexing: Bool,
-    replacement: [NvimApi.Value],
+    replacement: [String],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
@@ -362,7 +382,7 @@ public extension NvimApi {
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
-      .array(replacement.map { $0 }),
+      .array(replacement.map { .string($0) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -382,7 +402,7 @@ public extension NvimApi {
     start_col: Int,
     end_row: Int,
     end_col: Int,
-    replacement: [NvimApi.Value],
+    replacement: [String],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
@@ -392,7 +412,7 @@ public extension NvimApi {
       .int(Int64(start_col)),
       .int(Int64(end_row)),
       .int(Int64(end_col)),
-      .array(replacement.map { $0 }),
+      .array(replacement.map { .string($0) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -414,7 +434,7 @@ public extension NvimApi {
     end_col: Int,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
@@ -425,12 +445,22 @@ public extension NvimApi {
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_buf_get_text", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -534,19 +564,29 @@ public extension NvimApi {
     buf: NvimApi.Buffer,
     mode: String,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
       .string(mode),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_buf_get_keymap", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -858,19 +898,29 @@ public extension NvimApi {
     buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
       .string(name),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_buf_get_mark", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -1199,7 +1249,7 @@ public extension NvimApi {
 
     let params: [NvimApi.Value] = [
       .string(code),
-      .array(args.map { $0 }),
+      .array(args),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Value {
@@ -1336,7 +1386,7 @@ public extension NvimApi {
       .int(Int64(buffer.handle)),
       .int(Int64(src_id)),
       .int(Int64(line)),
-      .array(chunks.map { $0 }),
+      .array(chunks),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
@@ -1431,14 +1481,14 @@ public extension NvimApi {
   func bufferInsert(
     buffer: NvimApi.Buffer,
     lnum: Int,
-    lines: [NvimApi.Value],
+    lines: [String],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buffer.handle)),
       .int(Int64(lnum)),
-      .array(lines.map { $0 }),
+      .array(lines.map { .string($0) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -1541,7 +1591,7 @@ public extension NvimApi {
     include_start: Bool,
     include_end: Bool,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buffer.handle)),
@@ -1551,12 +1601,22 @@ public extension NvimApi {
       .bool(include_end),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "buffer_get_line_slice", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -1569,7 +1629,7 @@ public extension NvimApi {
     end: Int,
     include_start: Bool,
     include_end: Bool,
-    replacement: [NvimApi.Value],
+    replacement: [String],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
@@ -1579,7 +1639,7 @@ public extension NvimApi {
       .int(Int64(end)),
       .bool(include_start),
       .bool(include_end),
-      .array(replacement.map { $0 }),
+      .array(replacement.map { .string($0) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -2069,7 +2129,7 @@ public extension NvimApi {
   ) async -> Result<[NvimApi.Value], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .array(calls.map { $0 }),
+      .array(calls),
     ]
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
@@ -2337,7 +2397,7 @@ public extension NvimApi {
     end: NvimApi.Value,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
@@ -2347,12 +2407,22 @@ public extension NvimApi {
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_buf_get_extmarks", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3355,7 +3425,7 @@ public extension NvimApi {
 
     let params: [NvimApi.Value] = [
       .string(code),
-      .array(args.map { $0 }),
+      .array(args),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Value {
@@ -3411,18 +3481,28 @@ public extension NvimApi {
 
   func nvimListRuntimePaths(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_list_runtime_paths", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3432,19 +3512,29 @@ public extension NvimApi {
     name: String,
     all: Bool,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .string(name),
       .bool(all),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_get_runtime_file", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -3663,14 +3753,14 @@ public extension NvimApi {
   }
 
   func nvimEcho(
-    chunks: [NvimApi.Value],
+    chunks: [[NvimApi.Value]],
     history: Bool,
     opts: [String: NvimApi.Value],
     errWhenBlocked: Bool = true
   ) async -> Result<NvimApi.Value, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .array(chunks.map { $0 }),
+      .array(chunks.map { .array($0) }),
       .bool(history),
       .map(opts.mapToDict({ (NvimApi.Value.string($0), $1) })),
     ]
@@ -4051,7 +4141,7 @@ public extension NvimApi {
   }
 
   func nvimPut(
-    lines: [NvimApi.Value],
+    lines: [String],
     type: String,
     after: Bool,
     follow: Bool,
@@ -4059,7 +4149,7 @@ public extension NvimApi {
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
-      .array(lines.map { $0 }),
+      .array(lines.map { .string($0) }),
       .string(type),
       .bool(after),
       .bool(follow),
@@ -4218,18 +4308,28 @@ public extension NvimApi {
   func nvimGetKeymap(
     mode: String,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .string(mode),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_get_keymap", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -4362,18 +4462,28 @@ public extension NvimApi {
 
   func nvimListChans(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_list_chans", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -4381,18 +4491,28 @@ public extension NvimApi {
 
   func nvimListUis(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[[String: NvimApi.Value]], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [[String: NvimApi.Value]] {
+      guard let result = (msgPackArrayDictToSwift(value.arrayValue)) else {
+        throw NvimApi.Error.conversion(type: [[String: NvimApi.Value]].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_list_uis", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [[String: NvimApi.Value]] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -4648,7 +4768,7 @@ public extension NvimApi {
 
     let params: [NvimApi.Value] = [
       .string(fn),
-      .array(args.map { $0 }),
+      .array(args),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Value {
@@ -4682,7 +4802,7 @@ public extension NvimApi {
     let params: [NvimApi.Value] = [
       dict,
       .string(fn),
-      .array(args.map { $0 }),
+      .array(args),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Value {
@@ -4881,18 +5001,28 @@ public extension NvimApi {
   func nvimWinGetCursor(
     win: NvimApi.Window,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_win_get_cursor", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -4900,13 +5030,13 @@ public extension NvimApi {
 
   func nvimWinSetCursor(
     win: NvimApi.Window,
-    pos: [NvimApi.Value],
+    pos: [Int],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
-      .array(pos.map { $0 }),
+      .array(pos.map { .int(Int64($0)) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -5105,18 +5235,28 @@ public extension NvimApi {
   func nvimWinGetPosition(
     win: NvimApi.Window,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "nvim_win_get_position", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -5378,7 +5518,7 @@ public extension NvimApi {
     end: Int,
     strict_indexing: Bool,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
@@ -5387,12 +5527,22 @@ public extension NvimApi {
       .bool(strict_indexing),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "buffer_get_lines", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -5404,7 +5554,7 @@ public extension NvimApi {
     start: Int,
     end: Int,
     strict_indexing: Bool,
-    replacement: [NvimApi.Value],
+    replacement: [String],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
@@ -5413,7 +5563,7 @@ public extension NvimApi {
       .int(Int64(start)),
       .int(Int64(end)),
       .bool(strict_indexing),
-      .array(replacement.map { $0 }),
+      .array(replacement.map { .string($0) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -5550,19 +5700,29 @@ public extension NvimApi {
     buf: NvimApi.Buffer,
     name: String,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(buf.handle)),
       .string(name),
     ]
 
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
+
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "buffer_get_mark", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -5977,18 +6137,28 @@ public extension NvimApi {
   func tabpageGetWindows(
     tabpage: NvimApi.Tabpage,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[NvimApi.Window], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(tabpage.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Window] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Window(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Window].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "tabpage_get_windows", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Window] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6269,18 +6439,28 @@ public extension NvimApi {
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimListRuntimePaths(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[String], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [String] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.stringValue })) else {
+        throw NvimApi.Error.conversion(type: [String].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "vim_list_runtime_paths", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [String] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6443,18 +6623,28 @@ public extension NvimApi {
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimGetBuffers(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[NvimApi.Buffer], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Buffer] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Buffer(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Buffer].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "vim_get_buffers", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Buffer] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6514,18 +6704,28 @@ public extension NvimApi {
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimGetWindows(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[NvimApi.Window], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Window] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Window(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Window].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "vim_get_windows", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Window] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6585,18 +6785,28 @@ public extension NvimApi {
   @available(*, deprecated, message: "This method has been deprecated.")
   func vimGetTabpages(
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[NvimApi.Tabpage], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
         
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [NvimApi.Tabpage] {
+      guard let result = (value.arrayValue?.compactMap({ v in NvimApi.Tabpage(v) })) else {
+        throw NvimApi.Error.conversion(type: [NvimApi.Tabpage].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "vim_get_tabpages", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [NvimApi.Tabpage] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6795,7 +7005,7 @@ public extension NvimApi {
 
     let params: [NvimApi.Value] = [
       .string(fn),
-      .array(args.map { $0 }),
+      .array(args),
     ]
 
     func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> NvimApi.Value {
@@ -6854,18 +7064,28 @@ public extension NvimApi {
   func windowGetCursor(
     win: NvimApi.Window,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "window_get_cursor", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }
@@ -6874,13 +7094,13 @@ public extension NvimApi {
   @available(*, deprecated, message: "This method has been deprecated.")
   func windowSetCursor(
     win: NvimApi.Window,
-    pos: [NvimApi.Value],
+    pos: [Int],
     expectsReturnValue: Bool = false
   ) async -> Result<Void, NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
-      .array(pos.map { $0 }),
+      .array(pos.map { .int(Int64($0)) }),
     ]
 
     if expectsReturnValue, let error = await self.blockedError() { return .failure(error) }
@@ -7039,18 +7259,28 @@ public extension NvimApi {
   func windowGetPosition(
     win: NvimApi.Window,
     errWhenBlocked: Bool = true
-  ) async -> Result<[NvimApi.Value], NvimApi.Error> {
+  ) async -> Result<[Int], NvimApi.Error> {
 
     let params: [NvimApi.Value] = [
       .int(Int64(win.handle)),
     ]
+
+    func transform(_ value: NvimApi.Value) throws(NvimApi.Error) -> [Int] {
+      guard let result = (value.arrayValue?.compactMap({ v in v.intValue })) else {
+        throw NvimApi.Error.conversion(type: [Int].self)
+      }
+
+      return result
+    }
 
     if errWhenBlocked, let error = await self.blockedError() { return .failure(error) }
 
     let reqResult = await self.sendRequest(method: "window_get_position", params: params)
     switch reqResult {
     case let .success(value):
-      return .success(value.arrayValue ?? [])
+      return Result { () throws(NvimApi.Error) -> [Int] in
+        try transform(value)
+      }
     case let .failure(error):
       return .failure(.other(cause: error))
     }

@@ -338,7 +338,7 @@ public extension NvimView {
     guard let curWin = try? await self.api.nvimGetCurrentWin().get() else { return }
     await self.api.nvimWinSetCursor(
       win: curWin,
-      pos: [NvimApi.Value.int(Int64(position.row)), .int(Int64(position.column))],
+      pos: [position.row, position.column],
       expectsReturnValue: false
     ).cauterize()
   }

@@ -174,6 +174,9 @@ def swift_to_msgpack_value(name, type):
     if type in ["NvimApi.Buffer", "NvimApi.Window", "NvimApi.Tabpage"]:
         return f".int(Int64({name}.handle))"
 
+    if type == "[NvimApi.Value]":
+        return f".array({name})"
+
     if type.startswith("["):
         match = re.match(r"\[(.*)\]", type)
         test = "$0"
